@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from .models import Post
 
 
-def post_detail(request):
-	instance = Post.objects.get(id=1)
+def post_detail(request, post_id):
+	instance = get_object_or_404(Post, id=post_id)
 	context = {
 	"title": "Detail",
 	"instance": instance
