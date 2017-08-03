@@ -54,5 +54,8 @@ def post_update(request, post_id):
     }
     return render(request, 'post_update.html', context)
 
-def post_delete(request):
-	return render(request, "post_delete.html", {})
+def post_delete(request, post_id):
+    instance = get_object_or_404(Post, id=post_id)
+    instance.delete()
+    messages.success(request, "Successfully Deleted!")
+    return redirect("posts:list")
