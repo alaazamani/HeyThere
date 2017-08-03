@@ -23,6 +23,7 @@ def post_create(request):
     form = PostForm(request.POST or None)
     if form.is_valid():
         form.save()
+        messages.success(request, "Successfully Created!")
         return redirect("posts:list")
     context = {
     "title": "Create",
@@ -44,6 +45,7 @@ def post_update(request, post_id):
     form = PostForm(request.POST or None, instance = instance)
     if form.is_valid():
         form.save()
+        messages.success(request, "Successfully Edited!")
         return redirect(instance.get_absolute_url())
     context = {
     "form":form,
