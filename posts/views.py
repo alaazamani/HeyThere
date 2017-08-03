@@ -1,6 +1,13 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpResponse
 from .models import Post
+from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from urllib.parse import quote
+from .forms import PostForm
+
+def post_home(request):
+    return HttpResponse("<h1> Hello</h1>")
 
 
 def post_detail(request, post_id):
@@ -13,18 +20,27 @@ def post_detail(request, post_id):
 
 
 def post_create(request):
-	instance = Post.objects.get(id=1)
-	context = {
-	"title": "Detail",
-	"instance": instance
-	}
-	return render(request, 'post_detail.html', context)
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect("posts:list")
+    context = {
+    "title": "Create",
+    "form": form,
+    }
+    return render(request, 'post_create.html', context)
 
 def post_list(request):
-    object_list = Post.objects.all()
-    context = {
-    "object_list": object_list,
-    "title": "List",
-    "user": request.user
-    }
-    return render(request, 'post_list.html', context)
+	object_list = Post.objects.all()
+	context = {
+	"object_list": object_list,
+	"title": "List",
+	"user": request.user
+	}
+	return render(request, 'post_list.html', context)
+
+def post_update(request):
+	return render(request, "post_update.html", {})
+
+def post_delete(request):
+	return render(request, "post_delete.html", {})
