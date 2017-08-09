@@ -32,9 +32,18 @@ def post_create(request):
     return render(request, 'post_create.html', context)
 
 def post_list(request):
-	object_list = Post.objects.all().order_by("-timestamp","-updated")
-	context = {
-	"object_list": object_list,
+    object_list = Post.objects.all() #.order_by("-timestamp","-updated")
+
+    paginator = Paginator(object_list, 5) # Show 5 contacts per page
+    page = request.GET.get('page')
+    try:
+        objects = paginator.page(page)
+    except PageNotAnInteger:
+        objects = paginator.page(1)
+    except EmptyPage:
+        objects = paginator.page(paginator.num_pages)
+    context = {
+	"object_list": objects,
 	"title": "List",
 	"user": request.user
 	}
