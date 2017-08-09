@@ -17,17 +17,16 @@
     
     {% include "messages.html" %}
 
-    {% block content %}
+    <div class="container">
+        {% block content %}
 
-    {% endblock content %}
+        {% endblock content %}
+    </div>
 
     <script
   src="https://code.jquery.com/jquery-3.2.1.js"
   integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
   crossorigin="anonymous"></script>
- 
-
-
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>
