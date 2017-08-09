@@ -32,7 +32,7 @@ def post_create(request):
     return render(request, 'post_create.html', context)
 
 def post_list(request):
-	object_list = Post.objects.all()
+	object_list = Post.objects.all().order_by("-timestamp","-updated")
 	context = {
 	"object_list": object_list,
 	"title": "List",
