@@ -10,11 +10,12 @@ def post_home(request):
 	return HttpResponse("<h1> Hello</h1>")
 
 
-def post_detail(request, post_id):
+def post_detail(request, post_slug):
 	instance = get_object_or_404(Post, slug=post_slug)
 	context = {
 	"title": "Detail",
-	"instance": instance
+	"instance": instance,
+	"share_string": quote(instance.content)
 	}
 	return render(request, 'post_detail.html', context)
 
